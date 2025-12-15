@@ -72,7 +72,7 @@ func eniLimitedPodsFor(instanceType string) int64 {
 	})
 	Expect(err).ToNot(HaveOccurred())
 	networkInfo := *instance.InstanceTypes[0].NetworkInfo
-	return int64(*networkInfo.MaximumNetworkInterfaces*(*networkInfo.Ipv4AddressesPerInterface-1) + 2)
+	return int64(*networkInfo.MaximumNetworkInterfaces * (*networkInfo.Ipv4AddressesPerInterface - 1))
 }
 
 func reservedENIsFor(instanceType string) int64 {
@@ -87,5 +87,5 @@ func reservedENIsFor(instanceType string) int64 {
 		reservedENIs, err = strconv.Atoi(reservedENIsVar.Value)
 		Expect(err).ToNot(HaveOccurred())
 	}
-	return int64((int(*networkInfo.MaximumNetworkInterfaces)-reservedENIs)*(int(*networkInfo.Ipv4AddressesPerInterface-1)) + 2)
+	return int64((int(*networkInfo.MaximumNetworkInterfaces) - reservedENIs) * (int(*networkInfo.Ipv4AddressesPerInterface - 1)))
 }
